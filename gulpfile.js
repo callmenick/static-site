@@ -91,21 +91,28 @@ gulp.task('browsersync', function() {
 
 /** Serve task - launches a local dev server */
 gulp.task('serve', function(done) {
-  runSequence('clean', ['styles:development', 'views:development'], 'browsersync', function() {
+  runSequence('clean:development', ['styles:development', 'views:development'], 'browsersync', function() {
     done();
   });
 });
 
-/** Clean task - cleans directories */
-gulp.task('clean', function() {
-  return gulp.src(['./.tmp', './dist'], {
+/** Clean task - cleans dev directories */
+gulp.task('clean:development', function() {
+  return gulp.src('./.tmp', {
+    read: false
+  }).pipe(clean());
+});
+
+/** Clean task - cleans prod directories */
+gulp.task('clean:production', function() {
+  return gulp.src('./dist', {
     read: false
   }).pipe(clean());
 });
 
 /** Build task - builds for production */
 gulp.task('build', function(done) {
-  runSequence('clean', ['styles:production', 'views:production'], function(err) {
+  runSequence('clean:production', ['styles:production', 'views:production'], function(err) {
     done();
   });
 });
