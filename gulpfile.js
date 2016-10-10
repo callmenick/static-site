@@ -113,6 +113,8 @@ gulp.task('build', function(done) {
 /** Deploy task - builds and deploys to gh-pages branch */
 gulp.task('deploy', ['build'], function() {
   git.checkout()
+    .then(git.add)
+    .then(git.commit)
     .then(git.subtree)
     .then(git.push)
     .then(git.del)

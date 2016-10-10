@@ -4,11 +4,26 @@ const cp = require('child_process');
 const moment = require('moment');
 
 module.exports = (function() {
-  return { checkout, subtree, push, del }
+  return { checkout, add, commit, subtree, push, del }
 
   function checkout() {
     return new Promise((resolve, reject) => {
       var ps = cp.spawn('git', ['checkout', 'master']);
+      callback(ps, resolve, reject);
+    });
+  }
+
+  function add() {
+    return new Promise((resolve, reject) => {
+      var ps = cp.spawn('git', ['add', '.']);
+      callback(ps, resolve, reject);
+    });
+  }
+
+  function commit() {
+    return new Promise((resolve, reject) => {
+      var ts = moment().format('YYYY-MM-DD H:mm:ss');
+      var ps = cp.spawn('git', ['commit', '-m', ts]);
       callback(ps, resolve, reject);
     });
   }
