@@ -4,60 +4,47 @@ const cp = require('child_process');
 const moment = require('moment');
 
 module.exports = (function() {
-  return { add, commit, push }
+  return { checkout, subtree, push, del }
 
-  function add() {
+  function checkout() {
     return new Promise((resolve, reject) => {
-      var ps = cp.spawn('git', ['add', '.']);
-
-      ps.stdout.on('data', function(data) { console.log(data.toString()); });
-      ps.stderr.on('data', function(data) { console.log(data.toString()); });
-      ps.on('close', function(code) {
-        code === 0
-          ? resolve()
-          : reject({
-            ok: false,
-            code: 500,
-            message: 'Failed to add all.'
-          });
-      });
+      var ps = cp.spawn('git', ['checkout', 'master']);
+      callback(ps, resolve, reject);
     });
   }
 
-  function commit() {
+  function subtree() {
     return new Promise((resolve, reject) => {
-      var ts = moment().format('YYYY-MM-DD H:mm:ss');
-      var ps = cp.spawn('git', ['commit', '-m', ts]);
-
-      ps.stdout.on('data', function(data) { console.log(data.toString()); });
-      ps.stderr.on('data', function(data) { console.log(data.toString()); });
-      ps.on('close', function(code) {
-        code === 0
-          ? resolve()
-          : reject({
-            ok: false,
-            code: 500,
-            message: 'Failed to commit.'
-          });
-      });
+      var ps = cp.spawn('git', ['subtree', 'split', '--prefix', 'dist', '-b', 'gh-pages']);
+      callback(ps, resolve, reject);
     });
   }
 
   function push() {
     return new Promise((resolve, reject) => {
-      var ps = cp.spawn('git', ['subtree', 'push', '--prefix', 'dist', 'origin', 'site']);
+      var ps = cp.spawn('git', ['push', '-f', 'origin', 'gh-pages:gh-pages']);
+      callback(ps, resolve, reject);
+    });
+  }
 
-      ps.stdout.on('data', function(data) { console.log(data.toString()); });
-      ps.stderr.on('data', function(data) { console.log(data.toString()); });
-      ps.on('close', function(code) {
-        code === 0
-          ? resolve()
-          : reject({
-            ok: false,
-            code: 500,
-            message: 'Failed push changes.'
-          });
-      });
+  function del() {
+    return new Promise((resolve, reject) => {
+      var ps = cp.spawn('git', ['branch', '-D', 'gh-pages']);
+      callback(ps, resolve, reject);
+    });
+  }
+
+  function callback(ps, resolve, reject) {
+    ps.stdout.on('data', function(data) { console.log(data.toString()); });
+    ps.stderr.on('data', function(data) { console.log(data.toString()); });
+    ps.on('close', function(code) {
+      code === 0
+        ? resolve()
+        : reject({
+          ok: false,
+          code: 500,
+          message: 'Failed push changes.'
+        });
     });
   }
 })();
