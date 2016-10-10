@@ -2,15 +2,15 @@
 
 const gulp = require('gulp');
 const git = require('./util/git.js');
+const scss = require('gulp-sass');
 
 (function() {
   gulp.task('styles', function() {
-    // return gulp.src('./scss/**/*.scss')
-    //   .pipe(scss({
-    //     outputStyle: 'expanded'
-    //   }).on('error', scss.logError))
-    //   .pipe(autoprefixer())
-    //   .pipe(gulp.dest('./css'))
+    return gulp.src('./src/scss/**/*.scss')
+      .pipe(scss({
+        outputStyle: 'expanded'
+      }).on('error', scss.logError))
+      .pipe(gulp.dest('./dist/css'));
     //   .pipe(browserSync.stream());
   });
 
