@@ -1,0 +1,27 @@
+{
+  "name": "static-site",
+  "version": "1.0.0",
+  "description": "A very basic static site generator.",
+  "main": "index.html",
+  "scripts": {
+    "build": "gulp build",
+    "deploy": "gulp deploy",
+    "serve": "gulp serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callmenick/static-site.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/callmenick/static-site/issues"
+  },
+  "homepage": "https://github.com/callmenick/static-site#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-handlebars": "^4.0.0",
+    "gulp-postcss": "^6.2.0",
+    "moment": "^2.15.1"
+  }
+}
