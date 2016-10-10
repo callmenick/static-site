@@ -56,7 +56,8 @@ gulp.task('styles:production', function() {
 gulp.task('views:development', function() {
   return gulp.src(views)
     .pipe(pug({
-      pretty: true
+      pretty: true,
+      locals: require('./config/development.js')
     }).on('error', function(error) {
       console.log('pug error:', error.message);
       this.emit('end');
@@ -68,7 +69,9 @@ gulp.task('views:development', function() {
 /** Views - production task */
 gulp.task('views:production', function() {
   return gulp.src(views)
-    .pipe(pug().on('error', function(error) {
+    .pipe(pug({
+      locals: require('./config/production.js')
+    }).on('error', function(error) {
       console.log('pug error:', error);
       process.exit(1);
     }))

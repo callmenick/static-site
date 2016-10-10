@@ -4,9 +4,9 @@
   "description": "A very basic static site generator.",
   "main": "index.html",
   "scripts": {
+    "serve": "gulp serve",
     "build": "gulp build",
-    "deploy": "gulp deploy",
-    "serve": "gulp serve"
+    "deploy": "gulp deploy"
   },
   "repository": {
     "type": "git",
