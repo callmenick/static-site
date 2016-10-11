@@ -1,0 +1,32 @@
+block variables
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1.0")
+    title= title ? title : SITE_TITLE + " - " + (page ? page : SITE_BLURB)
+    meta(name="description" content= description || SITE_DESCRIPTION)
+
+    meta(name="twitter:card", content="summary_large_image")
+    meta(name="twitter:site", content="@nicksalloum_")
+    meta(name="twitter:title", content= title || SITE_TITLE)
+    meta(name="twitter:description", content= description || SITE_DESCRIPTION)
+    meta(name="twitter:image", content= SITE_URL + "/img/og-twitter.png")
+    meta(name="twitter:url", content= SITE_URL)
+
+    meta(property="og:type," content="website")
+    meta(property="og:site_name", content= title || SITE_TITLE)
+    meta(property="og:title", content= title ? title : SITE_TITLE + " - " + (page ? page : SITE_BLURB))
+    meta(property="og:description", content= description || SITE_DESCRIPTION)
+    meta(property="og:image", content= SITE_URL + "/img/og-facebook.png")
+    meta(property="og:url", content= SITE_URL)
+
+    link(rel="apple-touch-icon", sizes="180x180", href=SITE_URL + "/img/apple-touch-icon.png")
+    link(rel="icon", type="image/png", href= SITE_URL + "/img/favicon.png", sizes="32x32")
+    link(rel="shortcut icon", href= SITE_URL + "/img/favicon.ico")
+    link(rel="manifest", href= SITE_URL + "/manifest.json")
+
+    link(rel="stylesheet", href= SITE_URL + "/css/style.css")
+  body
+    block body
+    block scripts
