@@ -11,7 +11,6 @@ const es = require('event-stream');
 const git = require('./util/git.js');
 const glob = require('glob');
 const gulp = require('gulp');
-const handlebars = require('gulp-handlebars');
 const imagemin = require('gulp-imagemin');
 const path = require('path');
 const postcss = require('gulp-postcss');
